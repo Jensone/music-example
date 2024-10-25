@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OK{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/howler@2.2.4/dist/howler.min.js" integrity="sha256-c2wzlETIi6rVk+JK/fHW6PV0AZtON6EQ7LRT/3Rf/UE=" crossorigin="anonymous"></script>
+{% endblock %}
+
+{% block body %}
+
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success" role="alert">
+        {{ message }}
+    </div>
+{% endfor %}
+
+{% set song = '/uploads/' ~ music.link %}
+
+<img src="{{ '/uploads/' ~ music.cover }}" alt="cover" width="200">
+<audio src="{{ song }}" controls></audio>
+
+{{ dump(music) }}
+
+
+<script>
+    var sound = new Howl({
+        src: ['{{ song }}'],
+        html5: true,
+    });
+
+    sound.play();
+</script>
+
+
+{% endblock %}
+
